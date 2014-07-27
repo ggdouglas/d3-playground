@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manual Grid</title>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+
+<script>
+
+	// this can all be done automatically
+
+	var width = $(document).width() - 20;
+	var height = $(document).height() - 20;
+
+	var cellDim = 50;
+
+	var numCells_x = Math.ceil(width/cellDim);
+	var numCells_y = Math.ceil(height/cellDim);
+
+	var svgContainer = d3.select("body").append("svg")
+										.attr("width", width)
+										.attr("height", height);
+
+	for (var i = 1; i <= numCells_x; i++) {
+		svgContainer.append("line")
+					.attr("x1", i*cellDim)
+					.attr("y1", 0)
+					.attr("x2", i*cellDim)
+					.attr("y2", height)
+					.attr("stroke-width", 1)
+					.attr("stroke", "black");
+	};
+
+	for (var j = 1; j <= numCells_y; j++) {
+		svgContainer.append("line")
+					.attr("x1", 0)
+					.attr("y1", j*cellDim)
+					.attr("x2", width)
+					.attr("y2", j*cellDim)
+					.attr("stroke-width", 1)
+					.attr("stroke", "black");
+	};
+
+</script>
+</body>
+</html>

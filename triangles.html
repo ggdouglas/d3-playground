@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>D3 Test</title>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/sprintf/0.0.7/sprintf.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/randomcolor/0.1.1/randomColor.min.js"></script>
+</head>
+<body>
+
+<!-- <svg width="50" height="50">
+	<path d=" M 0  0
+			  L 0  50
+			  L 50 50
+			  Z"
+			fill="red" />
+
+	<path d=" M 0  0
+			  L 50 0
+			  L 50 50
+			  Z"
+			fill="blue" />
+
+	<path d="M0,0L0,50,L50,50Z" fill="green" />
+</svg> -->
+
+	<script>
+
+		var width = 800;
+		var height = 600;
+
+		var svg = d3.select("body").append("svg")
+									.attr("width", width)
+									.attr("height", height);
+
+		var dim = 25;
+
+		var numCells_x = width / dim;
+		var numCells_y = height / dim;
+
+		for (var i = 0; i < numCells_x; i++) {
+			for (var j = 0; j < numCells_y; j++) {
+				drawTopTri(i*dim, j*dim, dim, randomColor({hue: 'green', luminosity: 'dark'}));
+				drawBotTri(i*dim, j*dim, dim, randomColor({hue: 'green', luminosity: 'dark'}));
+			};
+		};
+
+		// x & y = start point (from top left corner)
+		//     d = dimension (length & width)
+		// color = triangle color
+
+		function drawBotTri(x, y, d, color) {
+			svg.append('polygon')
+				.attr('points', sprintf('%d,%d %d,%d %d,%d', x,y, x,y+d, x+d,y+d))
+				.attr('shape-rendering', 'crispEdges')
+				.attr('fill', color);
+		}
+
+		function drawTopTri(x, y, d, color) {
+			svg.append('polygon')
+				.attr('points', sprintf('%d,%d %d,%d %d,%d', x,y, x+d,y, x+d,y+d))
+				.attr('shape-rendering', 'crispEdges')
+				.attr('fill', color);
+		}
+
+		// next step, make it interactive on hover to shimmer the triangles
+
+	</script>
+
+</body>
+</html>
